@@ -268,7 +268,7 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
     <a href="#crossrepo">Cross-repo</a>
     <a href="#faq">FAQ</a>
   </div>
-  <div class="nav-badge">Engineering · Internal Handbook</div>
+  <div class="nav-badge">A free resource for developers · by Muskan</div>
 </nav>
 
 <!-- SCROLL DOTS -->
@@ -292,7 +292,7 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 <section id="hero">
   <div class="hero-dots"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow"><span></span>Internal handbook · Engineering</div>
+    <div class="hero-eyebrow"><span></span>Free handbook for developers · Open source</div>
     <h1 class="hero-h">AI Agents,<br/><em>demystified</em></h1>
     <p class="hero-p">Everything your team needs to understand, use, and get the most out of Claude and AI coding agents — from first principles to production setup.</p>
     <div class="hero-toc">
@@ -1990,7 +1990,36 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">AI Agent <b>Handbook</b></div>
-  <p>Internal · Engineering · May 2026</p>
+  <p style="margin-bottom:16px;font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;max-width:400px;margin-left:auto;margin-right:auto">
+    A free, open resource for developers navigating the AI agent ecosystem.<br/>
+    Always evolving — contributions and feedback welcome.
+  </p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:20px">
+    <span style="font-size:13px;color:rgba(255,255,255,.35)">Made with</span>
+    <span style="font-size:16px">❤️</span>
+    <span style="font-size:13px;color:rgba(255,255,255,.35)">by</span>
+    <a href="https://github.com/muskan27797" target="_blank" rel="noopener"
+       style="font-size:14px;font-weight:600;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:1px;transition:.15s"
+       onmouseenter="this.style.borderBottomColor='var(--red)';this.style.color='#ff8a65'"
+       onmouseleave="this.style.borderBottomColor='rgba(255,255,255,.2)';this.style.color='#fff'">
+      Muskan Agarwal
+    </a>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">
+    <a href="https://github.com/muskan27797/ai-agent-handbook" target="_blank" rel="noopener"
+       style="font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:.15s"
+       onmouseenter="this.style.color='rgba(255,255,255,.7)'"
+       onmouseleave="this.style.color='rgba(255,255,255,.3)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      Star on GitHub
+    </a>
+    <span style="color:rgba(255,255,255,.1)">·</span>
+    <span style="font-size:12px;color:rgba(255,255,255,.2)">© 2026 · Open source · Free forever</span>
+    <span style="color:rgba(255,255,255,.1)">·</span>
+    <a href="https://ai-agent-handbook.pages.dev" style="font-size:12px;color:rgba(255,255,255,.3);text-decoration:none"
+       onmouseenter="this.style.color='rgba(255,255,255,.7)'"
+       onmouseleave="this.style.color='rgba(255,255,255,.3)'">ai-agent-handbook.pages.dev</a>
+  </div>
 </footer>
 
 </div><!-- /page -->
@@ -2765,6 +2794,13 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeRestaurant
 
 <!-- ░░░ FLOATING ACTION BAR ░░░ -->
 <div id="fab">
+  <!-- Feedback button -->
+  <button id="feedback-btn" class="fab-btn" onclick="toggleFeedback()"
+    style="background:#fff;color:var(--ink);border:1.5px solid var(--line);display:none">
+    <span style="font-size:15px">💬</span>
+    <span>Feedback</span>
+  </button>
+
   <!-- GitHub link -->
   <a id="github-btn" class="fab-btn"
      href="https://github.com/muskan27797/ai-agent-handbook"
@@ -2784,97 +2820,133 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeRestaurant
   </button>
 </div>
 
+<!-- Feedback panel -->
+<div id="feedback-panel" style="
+  position:fixed;bottom:100px;right:28px;z-index:400;
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:20px;width:300px;box-shadow:0 8px 32px rgba(0,0,0,.15);
+  display:none;flex-direction:column;gap:12px;
+">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:14px;font-weight:700;color:var(--ink)">Share your feedback</div>
+    <button onclick="toggleFeedback()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink3);padding:0">✕</button>
+  </div>
+  <div style="font-size:12px;color:var(--ink3)">What's missing? What's confusing? What helped most?</div>
+  <textarea id="feedback-text" placeholder="Your feedback..." style="
+    width:100%;height:90px;border:1px solid var(--line);border-radius:4px;
+    padding:10px;font-family:var(--sans);font-size:13px;color:var(--ink);
+    resize:none;outline:none;line-height:1.6;
+  " onkeydown="if(event.key==='Enter'&&event.metaKey)submitFeedback()"></textarea>
+  <div style="display:flex;gap:8px">
+    <input id="feedback-name" type="text" placeholder="Your name (optional)" style="
+      flex:1;border:1px solid var(--line);border-radius:4px;
+      padding:8px 10px;font-family:var(--sans);font-size:12px;outline:none;
+    "/>
+  </div>
+  <button onclick="submitFeedback()" style="
+    background:var(--ink);color:#fff;border:none;border-radius:4px;
+    padding:10px;font-family:var(--sans);font-size:13px;font-weight:600;
+    cursor:pointer;transition:.15s;
+  " onmouseenter="this.style.background='var(--red)'"
+     onmouseleave="this.style.background='var(--ink)'"
+     id="feedback-submit">
+    Send feedback ↗
+  </button>
+  <div id="feedback-success" style="display:none;text-align:center;font-size:13px;color:var(--green);font-weight:600">
+    ✓ Thanks! Your feedback means a lot.
+  </div>
+</div>
+
 <!-- Toast notification -->
 <div id="toast">Thanks! Sharing helps others find this 🙌</div>
 
 <!-- ░░░ ANALYTICS + INTERACTIONS ░░░ -->
 <script>
+// ── WORKER API CONFIG ─────────────────────────────────────────────
+// Once you deploy the Cloudflare Worker, replace this URL with yours
+// e.g. 'https://handbook-api.YOUR_SUBDOMAIN.workers.dev'
+const WORKER_URL = 'https://handbook-api.muskan-agarwal27797.workers.dev';
+const hasWorker = () => WORKER_URL.startsWith('https://');
+
 // ── CLOUDFLARE CUSTOM EVENT HELPER ────────────────────────────────
-// Cloudflare Web Analytics exposes window.__cfBeacon after the script loads.
-// We wrap it so calls before load are queued gracefully.
-const _evQ = [];
 function trackEvent(name, props = {}) {
-  try {
-    if (window.__cfBeacon && window.__cfBeacon.siteToken && window.__cfBeacon.siteToken !== 'TOKEN_HERE') {
-      // Real Cloudflare beacon is loaded — use it
-      // CF Web Analytics fires events via the beacon endpoint
-      const payload = {
-        type: 'event',
-        name,
-        props: { ...props, url: location.href, ts: Date.now() }
-      };
-      navigator.sendBeacon && navigator.sendBeacon(
-        '/cdn-cgi/rum',
-        new Blob([JSON.stringify(payload)], { type: 'application/json' })
-      );
-    } else {
-      // Token not set yet — just log to console during dev
-      console.log('[Analytics]', name, props);
-    }
-    _evQ.push({ name, props, ts: Date.now() });
-  } catch(e) { /* silent */ }
+  try { console.log('[Analytics]', name, props); } catch(e) {}
 }
 
 // ── LIKE BUTTON ───────────────────────────────────────────────────
 const LIKE_KEY = 'handbook_liked_v1';
-const COUNT_KEY = 'handbook_like_count_v1';
+const pageLoadTime = Date.now();
 
-function initLike() {
+async function initLike() {
   const liked = localStorage.getItem(LIKE_KEY) === 'true';
   const btn = document.getElementById('like-btn');
   const label = document.getElementById('like-label');
-  const count = document.getElementById('like-count');
-
-  // Show running count (stored locally — reflects this browser's state)
-  // In a real backend you'd fetch a global count; for now local is fine
-  const localCount = parseInt(localStorage.getItem(COUNT_KEY) || '0');
+  const countEl = document.getElementById('like-count');
 
   if (liked) {
     btn.classList.add('liked');
     btn.querySelector('.like-icon').textContent = '❤️';
     label.textContent = 'You liked this';
-    if (localCount > 0) {
-      count.style.display = 'inline';
-      count.textContent = `· ${localCount}`;
-    }
+  }
+
+  // Fetch real global count from Worker if available
+  if (hasWorker()) {
+    try {
+      const res = await fetch(`${WORKER_URL}/stats`);
+      const data = await res.json();
+      if (data.likes > 0) {
+        countEl.style.display = 'inline';
+        countEl.textContent = `· ${data.likes.toLocaleString()} ${data.likes === 1 ? 'like' : 'likes'}`;
+      }
+    } catch(e) { /* Worker not reachable yet */ }
   }
 }
 
-function handleLike() {
+async function handleLike() {
   const btn = document.getElementById('like-btn');
   const label = document.getElementById('like-label');
-  const count = document.getElementById('like-count');
+  const countEl = document.getElementById('like-count');
   const alreadyLiked = btn.classList.contains('liked');
 
   if (alreadyLiked) {
-    // Unlike
     btn.classList.remove('liked');
     btn.querySelector('.like-icon').textContent = '🤍';
     label.textContent = 'Found this helpful?';
-    count.style.display = 'none';
     localStorage.removeItem(LIKE_KEY);
     trackEvent('handbook_unliked');
+    if (hasWorker()) {
+      try { await fetch(`${WORKER_URL}/unlike`, { method: 'POST' }); } catch(e) {}
+    }
     return;
   }
 
-  // Like — animate + track
+  // Animate
   btn.classList.add('liked', 'pop');
   btn.querySelector('.like-icon').textContent = '❤️';
   label.textContent = 'You liked this';
   setTimeout(() => btn.classList.remove('pop'), 400);
-
-  const newCount = parseInt(localStorage.getItem(COUNT_KEY) || '0') + 1;
   localStorage.setItem(LIKE_KEY, 'true');
-  localStorage.setItem(COUNT_KEY, newCount);
-  count.style.display = 'inline';
-  count.textContent = `· ${newCount}`;
 
-  // Track event with section user is currently reading
-  const currentSection = getCurrentSection();
   trackEvent('handbook_liked', {
-    section_when_liked: currentSection,
+    section_when_liked: getCurrentSection(),
     time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000)
   });
+
+  // Post to Worker + show updated count
+  if (hasWorker()) {
+    try {
+      const res = await fetch(`${WORKER_URL}/like`, { method: 'POST' });
+      const data = await res.json();
+      countEl.style.display = 'inline';
+      countEl.textContent = `· ${data.likes.toLocaleString()} ${data.likes === 1 ? 'like' : 'likes'}`;
+    } catch(e) {
+      countEl.style.display = 'inline';
+      countEl.textContent = '· 1 like';
+    }
+  } else {
+    countEl.style.display = 'inline';
+    countEl.textContent = '· 1 like';
+  }
 
   showToast();
 }
@@ -2885,8 +2957,65 @@ function showToast() {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
+// ── FEEDBACK ──────────────────────────────────────────────────────
+function toggleFeedback() {
+  const panel = document.getElementById('feedback-panel');
+  const btn = document.getElementById('feedback-btn');
+  const isOpen = panel.style.display === 'flex';
+  panel.style.display = isOpen ? 'none' : 'flex';
+  if (!isOpen) {
+    document.getElementById('feedback-text').focus();
+    trackEvent('feedback_panel_opened');
+  }
+}
+
+async function submitFeedback() {
+  const text = document.getElementById('feedback-text').value.trim();
+  const name = document.getElementById('feedback-name').value.trim();
+  if (!text) return;
+
+  const submitBtn = document.getElementById('feedback-submit');
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+
+  const payload = {
+    message: text,
+    name: name || 'Anonymous',
+    section: getCurrentSection(),
+    time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000),
+    url: location.href,
+    ts: new Date().toISOString()
+  };
+
+  trackEvent('feedback_submitted', { section: payload.section, has_name: !!name });
+
+  if (hasWorker()) {
+    try {
+      await fetch(`${WORKER_URL}/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch(e) { /* silent */ }
+  } else {
+    // No worker yet — just log it
+    console.log('[Feedback]', payload);
+  }
+
+  document.getElementById('feedback-text').value = '';
+  document.getElementById('feedback-name').value = '';
+  document.getElementById('feedback-success').style.display = 'block';
+  submitBtn.style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('feedback-panel').style.display = 'none';
+    document.getElementById('feedback-success').style.display = 'none';
+    submitBtn.style.display = 'block';
+    submitBtn.textContent = 'Send feedback ↗';
+    submitBtn.disabled = false;
+  }, 2500);
+}
+
 // ── SECTION TRACKING ──────────────────────────────────────────────
-const pageLoadTime = Date.now();
 let lastTrackedSection = '';
 
 function getCurrentSection() {
@@ -2898,7 +3027,6 @@ function getCurrentSection() {
   return 'hero';
 }
 
-// Track which sections users actually scroll to
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting && e.target.id && e.target.id !== lastTrackedSection) {
@@ -2908,40 +3036,22 @@ const sectionObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
-
-// ── MODAL + INTERACTION TRACKING ─────────────────────────────────
-// Wrap openModal to track which concepts people open
+// ── WRAP INTERACTIVE FUNCTIONS ────────────────────────────────────
 const _origOpenModal = openModal;
-openModal = function(key) {
-  trackEvent('concept_opened', { concept: key });
-  _origOpenModal(key);
-};
+openModal = function(key) { trackEvent('concept_opened', { concept: key }); _origOpenModal(key); };
 
-// Wrap openPillar
 const _origOpenPillar = openPillar;
-openPillar = function(key) {
-  trackEvent('pillar_opened', { pillar: key });
-  _origOpenPillar(key);
-};
+openPillar = function(key) { trackEvent('pillar_opened', { pillar: key }); _origOpenPillar(key); };
 
-// Wrap openRestaurant
 const _origOpenRestaurant = openRestaurant;
 openRestaurant = function() {
-  trackEvent('restaurant_analogy_opened', {
-    time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000)
-  });
+  trackEvent('restaurant_analogy_opened', { time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000) });
   _origOpenRestaurant();
 };
 
-// Track tab switches (pipeline with/without path)
 const _origSwitchTab = switchTab;
-switchTab = function(id, el) {
-  trackEvent('pipeline_tab_switched', { tab: id });
-  _origSwitchTab(id, el);
-};
+switchTab = function(id, el) { trackEvent('pipeline_tab_switched', { tab: id }); _origSwitchTab(id, el); };
 
-// Track FAQ opens
 const _origToggleFaq = toggleFaq;
 toggleFaq = function(btn) {
   const q = btn.querySelector('.faq-q-text');
@@ -2951,19 +3061,9 @@ toggleFaq = function(btn) {
   _origToggleFaq(btn);
 };
 
-// Track GitHub button clicks (also handled via onclick but belt+suspenders)
-document.getElementById('github-btn').addEventListener('click', () => {
-  trackEvent('github_clicked', {
-    section: getCurrentSection(),
-    time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000)
-  });
-});
-
-// Track time on page when user leaves
 window.addEventListener('beforeunload', () => {
-  const sec = Math.round((Date.now() - pageLoadTime) / 1000);
   trackEvent('page_exit', {
-    time_on_page_sec: sec,
+    time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000),
     last_section: lastTrackedSection,
     liked: localStorage.getItem(LIKE_KEY) === 'true'
   });
@@ -2973,6 +3073,12 @@ window.addEventListener('beforeunload', () => {
 document.addEventListener('DOMContentLoaded', () => {
   initLike();
   trackEvent('page_loaded', { referrer: document.referrer || 'direct' });
+  document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+  // Show feedback button after 30s (user has had time to read)
+  setTimeout(() => {
+    const fb = document.getElementById('feedback-btn');
+    if (fb) fb.style.display = 'flex';
+  }, 30000);
 });
 </script>
 
