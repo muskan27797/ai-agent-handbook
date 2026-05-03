@@ -1,0 +1,18 @@
+# AI Agent Handbook
+> A free reference for developers learning AI agents
+
+## What this covers
+- Tokens, context windows, hallucination, temperature
+- Agents, sub-agents, MCP, tools, skills, rules, hooks, commands
+- RAG vs AST indexing — how agents find your code
+- Full pipeline: what happens when you tell an agent to change a function
+- Cost model — why sessions compound
+- Project setup for Claude Code, Cursor, Copilot, Continue.dev
+- Frontend and backend engineer playbooks
+- Cross-repo workflows
+
+## URL
+https://ai-agent-handbook.pages.dev
+
+## Author
+Muskan Agarwal — https://github.com/muskan27797
