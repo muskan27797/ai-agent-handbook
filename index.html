@@ -287,9 +287,9 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
   <div class="nav-links">
     <a href="#hero">Home</a>
     <a href="#pillars">Pillars</a>
+    <a href="#concepts">Concepts</a>
     <a href="#indexing">Indexing</a>
     <a href="#pipeline">Pipeline</a>
-    <a href="#concepts">Concepts</a>
     <a href="#cost">Cost</a>
     <a href="#devflows">Dev Workflows</a>
     <a href="#fe-be">FE &amp; BE Playbooks</a>
@@ -315,17 +315,17 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 
 <!-- SCROLL DOTS -->
 <div class="sdots">
-  <div class="sdot on"  data-tip="Home"      onclick="goto('#hero')"></div>
-  <div class="sdot"     data-tip="4 Pillars"  onclick="goto('#pillars')"></div>
-  <div class="sdot"     data-tip="Indexing"   onclick="goto('#indexing')"></div>
-  <div class="sdot"     data-tip="Pipeline"   onclick="goto('#pipeline')"></div>
-  <div class="sdot"     data-tip="Concepts"   onclick="goto('#concepts')"></div>
-  <div class="sdot"     data-tip="Cost"       onclick="goto('#cost')"></div>
+  <div class="sdot on"  data-tip="Home"         onclick="goto('#hero')"></div>
+  <div class="sdot"     data-tip="4 Pillars"    onclick="goto('#pillars')"></div>
+  <div class="sdot"     data-tip="Concepts"     onclick="goto('#concepts')"></div>
+  <div class="sdot"     data-tip="Indexing"     onclick="goto('#indexing')"></div>
+  <div class="sdot"     data-tip="Pipeline"     onclick="goto('#pipeline')"></div>
+  <div class="sdot"     data-tip="Cost"         onclick="goto('#cost')"></div>
   <div class="sdot"     data-tip="Dev Workflows" onclick="goto('#devflows')"></div>
-  <div class="sdot"     data-tip="FE &amp; BE"    onclick="goto('#fe-be')"></div>
+  <div class="sdot"     data-tip="FE &amp; BE"  onclick="goto('#fe-be')"></div>
   <div class="sdot"     data-tip="Project Setup" onclick="goto('#project-setup')"></div>
-  <div class="sdot"     data-tip="Cross-repo"    onclick="goto('#crossrepo')"></div>
-  <div class="sdot"     data-tip="FAQ"        onclick="goto('#faq')"></div>
+  <div class="sdot"     data-tip="Cross-repo"   onclick="goto('#crossrepo')"></div>
+  <div class="sdot"     data-tip="FAQ"          onclick="goto('#faq')"></div>
 </div>
 
 <div class="page">
@@ -348,17 +348,17 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
         <div class="toc-num">01</div>
         <div class="toc-label">4 Pillars of LLMs</div>
       </div>
-      <div class="toc-item" onclick="goto('#indexing')">
+      <div class="toc-item" onclick="goto('#concepts')">
         <div class="toc-num">02</div>
+        <div class="toc-label">8 key concepts</div>
+      </div>
+      <div class="toc-item" onclick="goto('#indexing')">
+        <div class="toc-num">03</div>
         <div class="toc-label">How indexing works</div>
       </div>
       <div class="toc-item" onclick="goto('#pipeline')">
-        <div class="toc-num">03</div>
-        <div class="toc-label">Prompt → file change</div>
-      </div>
-      <div class="toc-item" onclick="goto('#concepts')">
         <div class="toc-num">04</div>
-        <div class="toc-label">8 key concepts</div>
+        <div class="toc-label">Prompt → file change</div>
       </div>
       <div class="toc-item" onclick="goto('#cost')">
         <div class="toc-num">05</div>
@@ -504,6 +504,80 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 </section>
 
 <!-- ═══════════════════════════ INDEXING -->
+<section id="concepts" style="background:var(--paper2)">
+<div class="wrap">
+  <div class="slabel">Core concepts</div>
+  <h2 class="stitle">8 things your team<br/>needs to know</h2>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:44px">
+    <p style="font-size:16px;color:var(--ink2);max-width:500px;line-height:1.7;margin:0">Click any card for a deeper look — including a restaurant analogy version of every concept.</p>
+    <button onclick="openRestaurant()" style="display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:none;border-radius:4px;padding:12px 22px;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:.2s;white-space:nowrap" onmouseenter="this.style.background='#c0392b'" onmouseleave="this.style.background='var(--ink)'">
+      <span style="font-size:18px">🍽️</span>
+      Explain all 8 with restaurant analogy
+    </button>
+  </div>
+
+  <div class="concepts-grid">
+    <div class="ccard" onclick="openModal('agent')">
+      <div class="ccard-accent" style="background:#c0392b"></div>
+      <div class="ccard-icon">🤖</div>
+      <h3>Agent</h3>
+      <p>An LLM with tools that can act autonomously in a loop</p>
+      <div class="ccard-badge" style="background:#fff0ef;color:#c0392b">Core concept</div>
+    </div>
+    <div class="ccard" onclick="openModal('subagent')">
+      <div class="ccard-accent" style="background:#5b2d9e"></div>
+      <div class="ccard-icon">🔀</div>
+      <h3>Sub-agent</h3>
+      <p>A child agent spawned for a specific subtask</p>
+      <div class="ccard-badge" style="background:#f3eeff;color:#5b2d9e">Delegation</div>
+    </div>
+    <div class="ccard" onclick="openModal('mcp')">
+      <div class="ccard-accent" style="background:#1a4fa0"></div>
+      <div class="ccard-icon">🔌</div>
+      <h3>MCP</h3>
+      <p>Standard protocol to connect agents to external services</p>
+      <div class="ccard-badge" style="background:#edf2fc;color:#1a4fa0">Integration</div>
+    </div>
+    <div class="ccard" onclick="openModal('tools')">
+      <div class="ccard-accent" style="background:#0f6e4a"></div>
+      <div class="ccard-icon">🛠️</div>
+      <h3>Tools</h3>
+      <p>Functions the LLM can call — read_file, run_bash, search…</p>
+      <div class="ccard-badge" style="background:#edfaf3;color:#0f6e4a">Execution</div>
+    </div>
+    <div class="ccard" onclick="openModal('skills')">
+      <div class="ccard-accent" style="background:#b56d00"></div>
+      <div class="ccard-icon">⭐</div>
+      <h3>Skills</h3>
+      <p>Pre-packaged instructions for common jobs</p>
+      <div class="ccard-badge" style="background:#fdf5e6;color:#b56d00">You write these</div>
+    </div>
+    <div class="ccard" onclick="openModal('rules')">
+      <div class="ccard-accent" style="background:#0e0e0e"></div>
+      <div class="ccard-icon">📏</div>
+      <h3>Rules</h3>
+      <p>Always-on constraints and policies for the agent</p>
+      <div class="ccard-badge" style="background:#f0f0f0;color:#0e0e0e">You write these</div>
+    </div>
+    <div class="ccard" onclick="openModal('hooks')">
+      <div class="ccard-accent" style="background:#c0392b"></div>
+      <div class="ccard-icon">🪝</div>
+      <h3>Hooks</h3>
+      <p>Code that runs before/after every tool call</p>
+      <div class="ccard-badge" style="background:#fff0ef;color:#c0392b">You write these</div>
+    </div>
+    <div class="ccard" onclick="openModal('commands')">
+      <div class="ccard-accent" style="background:#1a4fa0"></div>
+      <div class="ccard-icon">⚡</div>
+      <h3>Commands</h3>
+      <p>Slash-command shortcuts for repeated workflows</p>
+      <div class="ccard-badge" style="background:#edf2fc;color:#1a4fa0">You define these</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════ COST -->
 <section id="indexing" style="background:var(--paper2)">
 <div class="wrap">
   <div class="slabel">What happens first</div>
@@ -779,80 +853,6 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 </section>
 
 <!-- ═══════════════════════════ CONCEPTS -->
-<section id="concepts" style="background:var(--paper2)">
-<div class="wrap">
-  <div class="slabel">Core concepts</div>
-  <h2 class="stitle">8 things your team<br/>needs to know</h2>
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:44px">
-    <p style="font-size:16px;color:var(--ink2);max-width:500px;line-height:1.7;margin:0">Click any card for a deeper look — including a restaurant analogy version of every concept.</p>
-    <button onclick="openRestaurant()" style="display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:none;border-radius:4px;padding:12px 22px;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:.2s;white-space:nowrap" onmouseenter="this.style.background='#c0392b'" onmouseleave="this.style.background='var(--ink)'">
-      <span style="font-size:18px">🍽️</span>
-      Explain all 8 with restaurant analogy
-    </button>
-  </div>
-
-  <div class="concepts-grid">
-    <div class="ccard" onclick="openModal('agent')">
-      <div class="ccard-accent" style="background:#c0392b"></div>
-      <div class="ccard-icon">🤖</div>
-      <h3>Agent</h3>
-      <p>An LLM with tools that can act autonomously in a loop</p>
-      <div class="ccard-badge" style="background:#fff0ef;color:#c0392b">Core concept</div>
-    </div>
-    <div class="ccard" onclick="openModal('subagent')">
-      <div class="ccard-accent" style="background:#5b2d9e"></div>
-      <div class="ccard-icon">🔀</div>
-      <h3>Sub-agent</h3>
-      <p>A child agent spawned for a specific subtask</p>
-      <div class="ccard-badge" style="background:#f3eeff;color:#5b2d9e">Delegation</div>
-    </div>
-    <div class="ccard" onclick="openModal('mcp')">
-      <div class="ccard-accent" style="background:#1a4fa0"></div>
-      <div class="ccard-icon">🔌</div>
-      <h3>MCP</h3>
-      <p>Standard protocol to connect agents to external services</p>
-      <div class="ccard-badge" style="background:#edf2fc;color:#1a4fa0">Integration</div>
-    </div>
-    <div class="ccard" onclick="openModal('tools')">
-      <div class="ccard-accent" style="background:#0f6e4a"></div>
-      <div class="ccard-icon">🛠️</div>
-      <h3>Tools</h3>
-      <p>Functions the LLM can call — read_file, run_bash, search…</p>
-      <div class="ccard-badge" style="background:#edfaf3;color:#0f6e4a">Execution</div>
-    </div>
-    <div class="ccard" onclick="openModal('skills')">
-      <div class="ccard-accent" style="background:#b56d00"></div>
-      <div class="ccard-icon">⭐</div>
-      <h3>Skills</h3>
-      <p>Pre-packaged instructions for common jobs</p>
-      <div class="ccard-badge" style="background:#fdf5e6;color:#b56d00">You write these</div>
-    </div>
-    <div class="ccard" onclick="openModal('rules')">
-      <div class="ccard-accent" style="background:#0e0e0e"></div>
-      <div class="ccard-icon">📏</div>
-      <h3>Rules</h3>
-      <p>Always-on constraints and policies for the agent</p>
-      <div class="ccard-badge" style="background:#f0f0f0;color:#0e0e0e">You write these</div>
-    </div>
-    <div class="ccard" onclick="openModal('hooks')">
-      <div class="ccard-accent" style="background:#c0392b"></div>
-      <div class="ccard-icon">🪝</div>
-      <h3>Hooks</h3>
-      <p>Code that runs before/after every tool call</p>
-      <div class="ccard-badge" style="background:#fff0ef;color:#c0392b">You write these</div>
-    </div>
-    <div class="ccard" onclick="openModal('commands')">
-      <div class="ccard-accent" style="background:#1a4fa0"></div>
-      <div class="ccard-icon">⚡</div>
-      <h3>Commands</h3>
-      <p>Slash-command shortcuts for repeated workflows</p>
-      <div class="ccard-badge" style="background:#edf2fc;color:#1a4fa0">You define these</div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ═══════════════════════════ COST -->
 <section id="cost">
 <div class="wrap">
   <div class="slabel">Economics</div>
@@ -2091,7 +2091,7 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 
 <script>
 // ── NAV + DOTS ────────────────────────────────────────────────────
-const sectionIds = ['hero','pillars','indexing','pipeline','concepts','cost','devflows','fe-be','project-setup','crossrepo','faq'];
+const sectionIds = ['hero','pillars','concepts','indexing','pipeline','cost','devflows','fe-be','project-setup','crossrepo','faq'];
 function goto(sel){document.querySelector(sel).scrollIntoView({behavior:'smooth'})}
 const dots = document.querySelectorAll('.sdot');
 const navLinks = document.querySelectorAll('nav a');
@@ -3080,7 +3080,7 @@ async function submitFeedback() {
 let lastTrackedSection = '';
 
 function getCurrentSection() {
-  const ids = ['hero','pillars','indexing','pipeline','concepts','cost','devflows','fe-be','project-setup','crossrepo','faq'];
+  const ids = ['hero','pillars','concepts','indexing','pipeline','cost','devflows','fe-be','project-setup','crossrepo','faq'];
   for (const id of [...ids].reverse()) {
     const el = document.getElementById(id);
     if (el && el.getBoundingClientRect().top <= 120) return id;
