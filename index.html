@@ -581,8 +581,8 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 <section id="indexing" style="background:var(--paper2)">
 <div class="wrap">
   <div class="slabel">What happens first</div>
-  <h2 class="stitle">When you open a codebase<br/>for the first time</h2>
-  <p class="sdesc">Before you type a single prompt, the tool runs a background process. But <strong>what that process actually does</strong> differs significantly between tools — and it affects how you should write prompts.</p>
+  <h2 class="stitle">How your AI tool reads<br/>your codebase</h2>
+  <p class="sdesc">Before you type a single prompt, the tool does background work to understand your code. <strong>Each tool does this differently</strong> — and knowing how changes how you write prompts. Pick your tool below.</p>
 
   <div class="tab-bar">
     <div class="tab on"  onclick="switchTab('idx-cursor',this)">Cursor</div>
@@ -598,21 +598,22 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
       <div class="card" style="border-top:3px solid var(--purple);cursor:pointer;transition:.15s"
            onclick="openIdxPopup('cursor-flow')"
            onmouseenter="this.style.boxShadow='0 6px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.boxShadow=''">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px">How Cursor indexes</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:4px">How Cursor indexes</div>
+        <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:12px">Cursor splits your code into smart chunks, converts them to vectors (numbers), stores them remotely, and updates only what changed every 10 min.</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 1</span> — Files chunked locally at AST boundaries (function/class level)</div>
-          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 2</span> — Chunks sent to Cursor servers, embedded into vectors, stored in Turbopuffer</div>
-          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 3</span> — Every 10 min, Merkle tree detects changed files — only those re-upload</div>
+          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 1</span> — Your code is split at function/class boundaries locally (never whole files)</div>
+          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 2</span> — Each chunk is converted to a vector (meaning in numbers) and stored on Cursor's servers</div>
+          <div style="background:var(--paper2);border-radius:3px;padding:9px 12px;font-size:13px;color:var(--ink2)"><span style="font-weight:700;color:var(--purple)">Step 3</span> — Every 10 min, a Merkle tree detects changed files — only those get re-uploaded</div>
         </div>
-        <div style="font-size:12px;color:var(--blue);font-weight:600">→ Click for complete workflow detail</div>
+        <div style="font-size:12px;color:var(--blue);font-weight:600">→ Click to see the complete 4-step workflow</div>
       </div>
 
       <!-- Card 2: Merkle Tree -->
       <div class="card" style="border-top:3px solid var(--blue);cursor:pointer;transition:.15s"
            onclick="openIdxPopup('cursor-merkle')"
            onmouseenter="this.style.boxShadow='0 6px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.boxShadow=''">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px">Merkle Tree — the smart update trick</div>
-        <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:12px">Every file gets a <strong>unique fingerprint (hash)</strong>. Hashes combine up a tree. Change one file — only its branch updates, not the whole tree. Cursor uses this to re-index only what changed.</p>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:4px">Merkle Tree — the smart update trick</div>
+        <p style="font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:12px">Every file gets a <strong>unique fingerprint</strong>. Folders get fingerprints too, computed from their files. Change one file → only that branch of the tree gets re-processed. Everything else? Skipped.</p>
         <div style="font-family:var(--mono);font-size:12px;color:var(--ink3);background:var(--paper2);padding:10px 12px;border-radius:3px;line-height:1.9;margin-bottom:14px">
           root: <span style="color:var(--red)">a1b2c3</span><br/>
           &nbsp;&nbsp;src/: d4e5f6<br/>
@@ -716,22 +717,26 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
         <button onclick="closeIdxPopup()" style="background:none;border:1px solid rgba(255,255,255,.15);border-radius:4px;color:rgba(255,255,255,.5);font-size:16px;cursor:pointer;width:32px;height:32px;flex-shrink:0">✕</button>
       </div>
       <div style="padding:24px 28px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#f3eeff;border-left:4px solid var(--purple);border-radius:0 4px 4px 0;padding:14px 16px">
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px">The short version</div>
+          <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0">Cursor reads your code locally, breaks it into logical chunks (one per function/class), sends them to its servers as "meaning numbers" (vectors), and searches those when you ask a question. Only changed files ever get re-processed.</p>
+        </div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <div style="background:var(--paper2);border-radius:4px;padding:14px 16px;border-left:4px solid var(--purple)">
-            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">1 — AST chunking (local)</div>
-            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Files are split at <strong>semantic boundaries</strong> — function definitions, class declarations. Not arbitrary line counts. A 500-line file with 10 functions becomes 10 chunks. This preserves meaning inside each chunk.</p>
+            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">1 — AST chunking (local, on your machine)</div>
+            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Files are split at natural code boundaries — function definitions, class declarations. Not arbitrary line counts. A 500-line file with 10 functions becomes 10 chunks. This keeps each chunk meaningful and self-contained.</p>
           </div>
           <div style="background:var(--paper2);border-radius:4px;padding:14px 16px;border-left:4px solid var(--purple)">
-            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">2 — Embedding (Cursor servers)</div>
-            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Each chunk is sent to Cursor's servers and converted into a vector — a list of ~1500 numbers that captures the semantic meaning of the code. Similar code → similar vectors. Stored in Turbopuffer (remote vector DB) with obfuscated file paths.</p>
+            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">2 — Embedding (sent to Cursor's servers)</div>
+            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Each chunk gets converted into a vector — ~1500 numbers representing its meaning. Similar code produces similar numbers. These vectors are stored in Turbopuffer (a remote vector database). File paths are obfuscated.</p>
           </div>
           <div style="background:var(--paper2);border-radius:4px;padding:14px 16px;border-left:4px solid var(--purple)">
             <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">3 — Query time (semantic search)</div>
-            <p style="font-size:13px;color:var(--ink2);line-height:1.65">When you ask something in Cursor Chat, your query is also embedded into a vector. Turbopuffer finds the closest matching code chunks by vector similarity. Those chunks land in context — no full files loaded unless needed.</p>
+            <p style="font-size:13px;color:var(--ink2);line-height:1.65">When you ask something in Cursor Chat, your question is also converted to a vector. Turbopuffer finds the most similar code chunks by comparing vectors. Those relevant chunks get loaded into context — no full files unless needed.</p>
           </div>
           <div style="background:var(--paper2);border-radius:4px;padding:14px 16px;border-left:4px solid var(--purple)">
-            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">4 — Updates (Merkle tree)</div>
-            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Every 10 minutes, Cursor checks which files changed using a Merkle tree. Only changed files re-embed. A 50k file repo updates in seconds after a single edit.</p>
+            <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">4 — Updates (Merkle tree, every 10 min)</div>
+            <p style="font-size:13px;color:var(--ink2);line-height:1.65">Cursor tracks which files changed using a Merkle tree (a fingerprint system). Only changed files get re-embedded. A 50,000-file repo updates in seconds after a single edit. <a href="#" onclick="closeIdxPopup();setTimeout(()=>openIdxPopup('cursor-merkle'),100);return false;" style="color:var(--blue);font-weight:600">See the Merkle tree diagram →</a></p>
           </div>
         </div>
         <div class="note warn"><i>🔐</i><div><strong>Privacy:</strong> Code chunks leave your machine during steps 2 and 3. Raw code is not stored permanently — only vectors — but the transfer happens. Add sensitive files to <code>.cursorignore</code>.</div></div>
@@ -740,8 +745,6 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
         </div>
       </div>
     </div>
-
-    <!-- Cursor Merkle popup -->
     <div id="idx-pop-cursor-merkle" style="display:none">
       <div style="background:var(--ink);padding:24px 28px 20px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:flex-start">
         <div>
@@ -751,35 +754,139 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
         <button onclick="closeIdxPopup()" style="background:none;border:1px solid rgba(255,255,255,.15);border-radius:4px;color:rgba(255,255,255,.5);font-size:16px;cursor:pointer;width:32px;height:32px;flex-shrink:0">✕</button>
       </div>
       <div style="padding:24px 28px;display:flex;flex-direction:column;gap:16px">
-        <p style="font-size:14px;color:var(--ink2);line-height:1.75">A Merkle tree is a <strong>fingerprinting system</strong>. Every file gets a hash. Hashes combine up a tree. Change one file — only its branch needs updating.</p>
 
-        <!-- Diagram: sample repo -->
-        <div style="background:var(--paper2);border-radius:6px;padding:20px;font-family:var(--mono);font-size:12px;line-height:2.2">
-          <div style="font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em">Sample repo — invoice.js just changed</div>
-          <div style="color:var(--ink2)">
-            <span style="color:var(--red);font-weight:700">root hash: a1b2c3</span> <span style="color:var(--ink3);font-size:11px">← changed (propagates up from below)</span><br/>
-            <span style="color:var(--ink3)">├──</span> <span style="color:var(--red);font-weight:700">src/ hash: d4e5f6</span> <span style="color:var(--ink3);font-size:11px">← changed</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp; ├──</span> <span style="color:var(--ink3)">billing/ hash: g7h8i9</span> <span style="color:var(--red);font-size:11px">← changed</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp; │&nbsp;&nbsp; ├──</span> tax.js: <span style="color:var(--green)">ab12cd ✓ unchanged</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp; │&nbsp;&nbsp; └──</span> invoice.js: <span style="color:var(--red)">ef34gh ⚡ CHANGED</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp; └──</span> auth/ hash: <span style="color:var(--green)">jk56lm ✓ unchanged</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├──</span> login.ts: <span style="color:var(--green)">no78pq ✓</span><br/>
-            <span style="color:var(--ink3)">│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; └──</span> session.ts: <span style="color:var(--green)">rs90tu ✓</span><br/>
-            <span style="color:var(--ink3)">└──</span> tests/ hash: <span style="color:var(--green)">vw12xy ✓ unchanged</span>
+        <!-- Plain English intro -->
+        <div style="background:#fdf5e6;border-left:4px solid var(--amber);border-radius:0 4px 4px 0;padding:14px 16px">
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px">Think of it like a family tree of fingerprints</div>
+          <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin:0">Every file gets a unique fingerprint (called a <strong>hash</strong>). A folder's hash is computed from all its files. The root hash represents the <em>entire</em> codebase. If <strong>any</strong> file changes, its fingerprint changes — which ripples up through parent folders to the root. Cursor checks: <em>"is the root hash different from last time?"</em> If yes → walk the tree → find exactly which file changed → re-index only that file.</p>
+        </div>
+
+        <!-- Full visual SVG tree -->
+        <div style="background:var(--paper2);border-radius:6px;padding:20px 16px 16px">
+          <div style="font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em">Full repo tree — invoice.js just changed ⚡</div>
+          <svg width="100%" viewBox="0 0 620 390" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif;overflow:visible">
+            <defs>
+              <marker id="marr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M2 2L8 5L2 8" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+              </marker>
+            </defs>
+
+            <!-- ROOT -->
+            <rect x="210" y="8" width="200" height="52" rx="4" fill="#c0392b" stroke="#c0392b"/>
+            <text x="310" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,.6)" letter-spacing="1">ROOT</text>
+            <text x="310" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">hash: a1b2c3 ⚡</text>
+            <text x="310" y="74" text-anchor="middle" font-size="10" fill="#c0392b">changed — something below changed</text>
+
+            <!-- connector root → src -->
+            <line x1="230" y1="60" x2="160" y2="100" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <!-- connector root → tests -->
+            <line x1="390" y1="60" x2="470" y2="100" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+            <!-- SRC/ folder -->
+            <rect x="60" y="100" width="200" height="52" rx="4" fill="#c0392b" stroke="#c0392b"/>
+            <text x="160" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,.6)" letter-spacing="1">src/</text>
+            <text x="160" y="136" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">hash: d4e5f6 ⚡</text>
+            <text x="160" y="163" text-anchor="middle" font-size="10" fill="#c0392b">changed — child changed</text>
+
+            <!-- TESTS/ folder -->
+            <rect x="370" y="100" width="200" height="52" rx="4" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="470" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0f6e4a" letter-spacing="1">tests/</text>
+            <text x="470" y="136" text-anchor="middle" font-size="13" font-weight="600" fill="#0f6e4a">hash: vw12xy ✓</text>
+            <text x="470" y="163" text-anchor="middle" font-size="10" fill="#0f6e4a">unchanged — skip ✓</text>
+
+            <!-- connector src → billing -->
+            <line x1="100" y1="152" x2="80" y2="196" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <!-- connector src → auth -->
+            <line x1="220" y1="152" x2="260" y2="196" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+            <!-- BILLING/ folder -->
+            <rect x="10" y="196" width="175" height="52" rx="4" fill="#c0392b" stroke="#c0392b"/>
+            <text x="97" y="216" text-anchor="middle" font-size="11" font-weight="700" fill="rgba(255,255,255,.6)" letter-spacing="1">billing/</text>
+            <text x="97" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">hash: g7h8i9 ⚡</text>
+            <text x="97" y="258" text-anchor="middle" font-size="10" fill="#c0392b">changed — invoice.js changed</text>
+
+            <!-- AUTH/ folder -->
+            <rect x="210" y="196" width="175" height="52" rx="4" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="297" y="216" text-anchor="middle" font-size="11" font-weight="700" fill="#0f6e4a" letter-spacing="1">auth/</text>
+            <text x="297" y="232" text-anchor="middle" font-size="13" font-weight="600" fill="#0f6e4a">hash: jk56lm ✓</text>
+            <text x="297" y="258" text-anchor="middle" font-size="10" fill="#0f6e4a">unchanged — skip ✓</text>
+
+            <!-- connector billing → tax.js -->
+            <line x1="40" y1="248" x2="30" y2="292" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <!-- connector billing → invoice.js -->
+            <line x1="155" y1="248" x2="160" y2="292" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+            <!-- connector auth → login.ts -->
+            <line x1="240" y1="248" x2="230" y2="292" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <!-- connector auth → session.ts -->
+            <line x1="355" y1="248" x2="365" y2="292" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+            <!-- tax.js leaf -->
+            <rect x="0" y="292" width="110" height="44" rx="3" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="55" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0f6e4a">tax.js</text>
+            <text x="55" y="326" text-anchor="middle" font-size="10" fill="#0f6e4a">ab12cd ✓ skip</text>
+
+            <!-- invoice.js leaf — CHANGED -->
+            <rect x="116" y="292" width="118" height="44" rx="3" fill="#c0392b" stroke="#c0392b"/>
+            <text x="175" y="309" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">invoice.js</text>
+            <text x="175" y="326" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.8)">ef34gh ⚡ RE-EMBED</text>
+
+            <!-- login.ts leaf -->
+            <rect x="180" y="292" width="110" height="44" rx="3" fill="#e8f5e9" stroke="#0f6e4a" x="190"/>
+            <text x="245" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0f6e4a">login.ts</text>
+            <text x="245" y="326" text-anchor="middle" font-size="10" fill="#0f6e4a">no78pq ✓ skip</text>
+
+            <!-- session.ts leaf -->
+            <rect x="320" y="292" width="116" height="44" rx="3" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="378" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0f6e4a">session.ts</text>
+            <text x="378" y="326" text-anchor="middle" font-size="10" fill="#0f6e4a">rs90tu ✓ skip</text>
+
+            <!-- tests children -->
+            <line x1="440" y1="152" x2="450" y2="292" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <line x1="500" y1="152" x2="530" y2="292" stroke="#7a7a7a" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <rect x="445" y="292" width="110" height="44" rx="3" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="500" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0f6e4a">invoice.test</text>
+            <text x="500" y="326" text-anchor="middle" font-size="10" fill="#0f6e4a">qr56st ✓ skip</text>
+            <rect x="560" y="292" width="56" height="44" rx="3" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="588" y="309" text-anchor="middle" font-size="11" font-weight="600" fill="#0f6e4a">utils</text>
+            <text x="588" y="326" text-anchor="middle" font-size="10" fill="#0f6e4a">uv78wx ✓</text>
+
+            <!-- Legend -->
+            <rect x="0" y="350" width="14" height="14" rx="2" fill="#c0392b"/>
+            <text x="18" y="362" font-size="11" fill="#3d3d3d">Changed — re-embed</text>
+            <rect x="160" y="350" width="14" height="14" rx="2" fill="#e8f5e9" stroke="#0f6e4a"/>
+            <text x="178" y="362" font-size="11" fill="#3d3d3d">Unchanged — skip</text>
+          </svg>
+        </div>
+
+        <!-- What happens step by step -->
+        <div style="background:var(--white);border-radius:4px;padding:16px 18px;border:1px solid var(--line)">
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px">What happens every 10 minutes, step by step</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink2)">
+              <span style="background:var(--ink);color:#fff;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px">1</span>
+              <span>Cursor computes a fresh root hash from all your files</span>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink2)">
+              <span style="background:var(--ink);color:#fff;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px">2</span>
+              <span>Compares with the stored root hash — different? Something changed somewhere</span>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink2)">
+              <span style="background:var(--ink);color:#fff;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px">3</span>
+              <span>Walks down the red branches (changed folders) only — ignores green branches entirely</span>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink2)">
+              <span style="background:var(--ink);color:#fff;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px">4</span>
+              <span>Finds <strong>invoice.js</strong> — the only file with a new hash — and re-embeds just that file</span>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink2)">
+              <span style="background:var(--ink);color:#fff;font-weight:700;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px">5</span>
+              <span>Updates the stored hashes up the changed branch. Done in seconds.</span>
+            </div>
           </div>
         </div>
 
-        <div style="background:var(--white);border-radius:4px;padding:14px 16px;border:1px solid var(--line)">
-          <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px">What happens every 10 minutes</div>
-          <ol style="font-size:13px;color:var(--ink2);line-height:1.9;margin:0;padding-left:18px">
-            <li>Cursor computes the new root hash</li>
-            <li>Different from stored root? Something changed</li>
-            <li>Walk the tree — find exactly which files have different hashes</li>
-            <li>Re-embed only those files (invoice.js in this example)</li>
-            <li>Update stored hashes up the changed branch</li>
-          </ol>
-        </div>
-        <div class="note tip"><i>⚡</i><div>50,000 file repo. One file changed. Cursor re-embeds <strong>1 file</strong>, not 50,000. That's why incremental updates are instant.</div></div>
+        <div class="note tip"><i>⚡</i><div>50,000-file repo. One file changed. Cursor re-embeds <strong>1 file</strong>, not 50,000. That's the whole point — Merkle trees make incremental updates nearly instant regardless of repo size.</div></div>
         <div style="font-size:12px;color:var(--ink3);padding:10px 14px;background:var(--paper2);border-radius:3px">
           📖 <a href="https://read.engineerscodex.com/p/how-cursor-indexes-codebases-fast" target="_blank" rel="noopener" style="color:var(--blue)">Engineer's Codex — How Cursor Indexes Codebases Fast</a>
         </div>
