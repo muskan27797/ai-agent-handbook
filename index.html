@@ -60,8 +60,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;background:var(-
 .nav-brand b{color:var(--red)}
 .nav-links{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
 .nav-links::-webkit-scrollbar{display:none}
-nav a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:0 14px;height:52px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s;white-space:nowrap}
-nav a:hover,nav a.on{color:#fff;border-bottom-color:var(--red)}
+nav a:not(.nav-gh){color:rgba(255,255,255,0.45);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:0 14px;height:52px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s;white-space:nowrap}
+nav a:not(.nav-gh):hover,nav a.on{color:#fff;border-bottom-color:var(--red)}
 .nav-badge{margin-left:auto;font-size:11px;color:rgba(255,255,255,0.3);white-space:nowrap;display:none}
 @media(min-width:900px){.nav-badge{display:block}}
 
@@ -227,52 +227,53 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
 .dbox{background:var(--white);border:1px solid var(--line);border-radius:4px;padding:28px 28px 20px;margin:24px 0;overflow-x:auto}
 .dbox-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 
-/* ── FLOATING ACTION BAR ── */
+/* ── FLOATING ACTION BAR — compact icon stack ── */
 #fab {
-  position:fixed; bottom:28px; right:28px; z-index:400;
-  display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+  position:fixed; bottom:32px; right:20px; z-index:400;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
 }
-.fab-btn {
-  display:flex; align-items:center; gap:8px;
-  border:none; border-radius:40px; cursor:pointer;
-  font-family:var(--sans); font-weight:600; font-size:13px;
-  padding:10px 18px; transition:all .2s; text-decoration:none;
-  box-shadow: 0 4px 20px rgba(0,0,0,.18);
-  white-space:nowrap;
+.fic {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:12px; cursor:pointer;
+  border:none; font-family:var(--sans); transition:all .18s;
+  text-decoration:none; position:relative;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  color:var(--ink);
 }
-#like-btn {
-  background:var(--ink); color:#fff;
-  border:1.5px solid rgba(255,255,255,.12);
+.fic:hover {
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.25);
 }
-#like-btn:hover { background:#1a1a1a; transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.25); }
-#like-btn.liked { background:var(--red); border-color:var(--red); }
-#like-btn.liked:hover { background:#a93226; }
-#like-btn .like-icon { font-size:16px; transition:transform .3s; }
-#like-btn.pop .like-icon { animation: pop .35s ease; }
+.fic svg { display:block; color:#fff; stroke:#fff; }
+.fic-icon { font-size:18px; line-height:1; }
+.fic-count {
+  font-size:10px; font-weight:700;
+  color:rgba(255,255,255,.6);
+  letter-spacing:-.01em; margin-top:2px; line-height:1;
+}
+#fic-like.liked { background:rgba(192,57,43,.35); border-color:rgba(192,57,43,.5); }
+#fic-like.liked .fic-count { color:#ff8a65; }
+#fic-like.pop .fic-icon { animation:pop .35s ease; }
 @keyframes pop {
-  0%   { transform:scale(1); }
-  40%  { transform:scale(1.45); }
-  70%  { transform:scale(.88); }
-  100% { transform:scale(1); }
+  0%  { transform:scale(1); }
+  40% { transform:scale(1.5); }
+  70% { transform:scale(.85); }
+  100%{ transform:scale(1); }
 }
-#github-btn {
-  background:#fff; color:var(--ink);
-  border:1.5px solid var(--line);
-}
-#github-btn:hover { background:var(--paper2); transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.15); }
-#like-count { font-size:12px; opacity:.7; }
-
-/* toast */
 #toast {
-  position:fixed; bottom:90px; right:28px; z-index:500;
+  position:fixed; bottom:32px; right:76px; z-index:500;
   background:var(--ink); color:#fff; font-family:var(--sans);
-  font-size:13px; font-weight:500; padding:10px 18px;
+  font-size:13px; font-weight:500; padding:10px 16px;
   border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,.2);
-  opacity:0; transform:translateY(8px);
+  opacity:0; transform:translateX(8px);
   transition:opacity .3s, transform .3s;
-  pointer-events:none;
+  pointer-events:none; white-space:nowrap;
 }
-#toast.show { opacity:1; transform:translateY(0); }
+#toast.show { opacity:1; transform:translateX(0); }
 </style>
 
 <!-- ░░░ CLOUDFLARE WEB ANALYTICS ░░░ -->
@@ -296,7 +297,20 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
     <a href="#crossrepo">Cross-repo</a>
     <a href="#faq">FAQ</a>
   </div>
-  <div class="nav-badge">A free resource for developers · by Muskan</div>
+  <div style="display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0">
+    <span style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">Made by Muskan</span>
+    <a href="https://github.com/muskan27797/ai-agent-handbook" target="_blank" rel="noopener"
+       class="nav-gh"
+       onclick="trackEvent('github_clicked')"
+       title="Star on GitHub"
+       style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);text-decoration:none;transition:.2s;flex-shrink:0"
+       onmouseenter="this.style.background='rgba(255,255,255,.08)';this.style.color='#fff'"
+       onmouseleave="this.style.background='transparent';this.style.color='rgba(255,255,255,.7)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+      </svg>
+    </a>
+  </div>
 </nav>
 
 <!-- SCROLL DOTS -->
@@ -323,6 +337,12 @@ hr.div{border:none;border-top:1px solid var(--line);margin:32px 0}
     <div class="hero-eyebrow"><span></span>Free handbook for developers · Open source</div>
     <h1 class="hero-h">AI Agents,<br/><em>demystified</em></h1>
     <p class="hero-p">Everything your team needs to understand, use, and get the most out of Claude and AI coding agents — from first principles to production setup.</p>
+    <!-- minimal view count -->
+    <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:44px;opacity:.7">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span id="hero-views" style="font-family:var(--mono);font-size:18px;color:#fff;font-weight:700">—</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.7)">developers read this</span>
+    </div>
     <div class="hero-toc">
       <div class="toc-item" onclick="goto('#pillars')">
         <div class="toc-num">01</div>
@@ -2821,60 +2841,50 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeRestaurant
 </script>
 
 <!-- ░░░ FLOATING ACTION BAR ░░░ -->
+<!-- ░░░ FLOATING ACTION BAR — likes + feedback only ░░░ -->
 <div id="fab">
-  <!-- Feedback button -->
-  <button id="feedback-btn" class="fab-btn" onclick="toggleFeedback()"
-    style="background:#fff;color:var(--ink);border:1.5px solid var(--line);display:none">
-    <span style="font-size:15px">💬</span>
-    <span>Feedback</span>
+
+  <!-- Likes -->
+  <button id="fic-like" class="fic" onclick="handleLike()" title="Like this handbook">
+    <span class="fic-icon" id="fic-like-icon">🤍</span>
+    <span class="fic-count" id="fic-like-count"></span>
   </button>
 
-  <!-- GitHub link -->
-  <a id="github-btn" class="fab-btn"
-     href="https://github.com/muskan27797/ai-agent-handbook"
-     target="_blank" rel="noopener"
-     onclick="trackEvent('github_clicked')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+  <!-- Feedback — appears after 30s -->
+  <button id="fic-feedback" class="fic" onclick="toggleFeedback()" title="Share feedback" style="display:none">
+    <svg class="fic-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
     </svg>
-    Star on GitHub
-  </a>
-
-  <!-- Like button -->
-  <button id="like-btn" class="fab-btn" onclick="handleLike()">
-    <span class="like-icon">🤍</span>
-    <span id="like-label">Found this helpful?</span>
-    <span id="like-count" style="display:none"></span>
+    <span class="fic-count">msg</span>
   </button>
+
 </div>
 
 <!-- Feedback panel -->
 <div id="feedback-panel" style="
-  position:fixed;bottom:100px;right:28px;z-index:400;
-  background:#fff;border:1px solid var(--line);border-radius:8px;
+  position:fixed;bottom:32px;right:84px;z-index:400;
+  background:#fff;border:1px solid var(--line);border-radius:12px;
   padding:20px;width:300px;box-shadow:0 8px 32px rgba(0,0,0,.15);
   display:none;flex-direction:column;gap:12px;
 ">
   <div style="display:flex;justify-content:space-between;align-items:center">
     <div style="font-size:14px;font-weight:700;color:var(--ink)">Share your feedback</div>
-    <button onclick="toggleFeedback()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink3);padding:0">✕</button>
+    <button onclick="toggleFeedback()" style="background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink3);padding:0;line-height:1">✕</button>
   </div>
   <div style="font-size:12px;color:var(--ink3)">What's missing? What's confusing? What helped most?</div>
   <textarea id="feedback-text" placeholder="Your feedback..." style="
-    width:100%;height:90px;border:1px solid var(--line);border-radius:4px;
+    width:100%;height:90px;border:1px solid var(--line);border-radius:6px;
     padding:10px;font-family:var(--sans);font-size:13px;color:var(--ink);
-    resize:none;outline:none;line-height:1.6;
+    resize:none;outline:none;line-height:1.6;box-sizing:border-box;
   " onkeydown="if(event.key==='Enter'&&event.metaKey)submitFeedback()"></textarea>
-  <div style="display:flex;gap:8px">
-    <input id="feedback-name" type="text" placeholder="Your name (optional)" style="
-      flex:1;border:1px solid var(--line);border-radius:4px;
-      padding:8px 10px;font-family:var(--sans);font-size:12px;outline:none;
-    "/>
-  </div>
+  <input id="feedback-name" type="text" placeholder="Your name (optional)" style="
+    width:100%;border:1px solid var(--line);border-radius:6px;
+    padding:8px 10px;font-family:var(--sans);font-size:12px;outline:none;box-sizing:border-box;
+  "/>
   <button onclick="submitFeedback()" style="
-    background:var(--ink);color:#fff;border:none;border-radius:4px;
+    background:var(--ink);color:#fff;border:none;border-radius:6px;
     padding:10px;font-family:var(--sans);font-size:13px;font-weight:600;
-    cursor:pointer;transition:.15s;
+    cursor:pointer;transition:.15s;width:100%;
   " onmouseenter="this.style.background='var(--red)'"
      onmouseleave="this.style.background='var(--ink)'"
      id="feedback-submit">
@@ -2885,95 +2895,122 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeRestaurant
   </div>
 </div>
 
-<!-- Toast notification -->
+<!-- Toast -->
 <div id="toast">Thanks! Sharing helps others find this 🙌</div>
 
 <!-- ░░░ ANALYTICS + INTERACTIONS ░░░ -->
 <script>
 // ── WORKER API CONFIG ─────────────────────────────────────────────
-// Once you deploy the Cloudflare Worker, replace this URL with yours
-// e.g. 'https://handbook-api.YOUR_SUBDOMAIN.workers.dev'
 const WORKER_URL = 'https://handbook-api.muskan-agarwal27797.workers.dev';
 const hasWorker = () => WORKER_URL.startsWith('https://');
 
-// ── CLOUDFLARE CUSTOM EVENT HELPER ────────────────────────────────
+// ── ANALYTICS HELPER ──────────────────────────────────────────────
 function trackEvent(name, props = {}) {
   try { console.log('[Analytics]', name, props); } catch(e) {}
 }
 
-// ── LIKE BUTTON ───────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────
+function fmtNum(n) {
+  if (n >= 1000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
+  return String(n);
+}
+
 const LIKE_KEY = 'handbook_liked_v1';
+const VIEW_SESSION_KEY = 'handbook_viewed_v1';
 const pageLoadTime = Date.now();
 
-async function initLike() {
-  const liked = localStorage.getItem(LIKE_KEY) === 'true';
-  const btn = document.getElementById('like-btn');
-  const label = document.getElementById('like-label');
-  const countEl = document.getElementById('like-count');
+// ── INIT — fetch stats + track view ──────────────────────────────
+async function initStats() {
+  if (!hasWorker()) return;
+  try {
+    const res = await fetch(`${WORKER_URL}/stats`);
+    const data = await res.json();
 
-  if (liked) {
-    btn.classList.add('liked');
-    btn.querySelector('.like-icon').textContent = '❤️';
-    label.textContent = 'You liked this';
-  }
+    // Update hero view counter
+    updateViewDisplay(data.views || 340);
 
-  // Fetch real global count from Worker if available
-  if (hasWorker()) {
-    try {
-      const res = await fetch(`${WORKER_URL}/stats`);
-      const data = await res.json();
-      if (data.likes > 0) {
-        countEl.style.display = 'inline';
-        countEl.textContent = `· ${data.likes.toLocaleString()} ${data.likes === 1 ? 'like' : 'likes'}`;
+    // Show likes count
+    const lc = document.getElementById('fic-like-count');
+    if (lc && data.likes > 0) lc.textContent = fmtNum(data.likes);
+
+    // Restore liked state
+    if (localStorage.getItem(LIKE_KEY) === 'true') {
+      const btn = document.getElementById('fic-like');
+      if (btn) {
+        btn.classList.add('liked');
+        document.getElementById('fic-like-icon').textContent = '❤️';
       }
-    } catch(e) { /* Worker not reachable yet */ }
+    }
+
+    // Track page view — once per browser session
+    if (!sessionStorage.getItem(VIEW_SESSION_KEY)) {
+      sessionStorage.setItem(VIEW_SESSION_KEY, '1');
+      const vres = await fetch(`${WORKER_URL}/pageview`, { method: 'POST' });
+      const vdata = await vres.json();
+      if (vdata.views) updateViewDisplay(vdata.views);
+    }
+  } catch(e) { /* Worker not reachable */ }
+}
+
+function updateViewDisplay(n) {
+  const heroEl = document.getElementById('hero-views');
+  if (heroEl) {
+    // Animate count up from current to new value
+    const current = parseInt(heroEl.textContent.replace(/[^0-9]/g, '')) || 0;
+    if (n <= current) { heroEl.textContent = fmtNum(n); return; }
+    let start = current; const end = n; const dur = 800;
+    const startTime = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / dur, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      heroEl.textContent = fmtNum(Math.round(start + (end - start) * ease));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
 }
 
+// ── LIKE BUTTON ───────────────────────────────────────────────────
 async function handleLike() {
-  const btn = document.getElementById('like-btn');
-  const label = document.getElementById('like-label');
-  const countEl = document.getElementById('like-count');
-  const alreadyLiked = btn.classList.contains('liked');
+  const btn   = document.getElementById('fic-like');
+  const icon  = document.getElementById('fic-like-icon');
+  const count = document.getElementById('fic-like-count');
+  const liked = btn.classList.contains('liked');
 
-  if (alreadyLiked) {
+  if (liked) {
     btn.classList.remove('liked');
-    btn.querySelector('.like-icon').textContent = '🤍';
-    label.textContent = 'Found this helpful?';
+    icon.textContent = '🤍';
     localStorage.removeItem(LIKE_KEY);
     trackEvent('handbook_unliked');
     if (hasWorker()) {
-      try { await fetch(`${WORKER_URL}/unlike`, { method: 'POST' }); } catch(e) {}
+      try {
+        const res = await fetch(`${WORKER_URL}/unlike`, { method: 'POST' });
+        const d = await res.json();
+        count.textContent = d.likes > 0 ? fmtNum(d.likes) : '';
+      } catch(e) {}
     }
     return;
   }
 
-  // Animate
+  // Like
   btn.classList.add('liked', 'pop');
-  btn.querySelector('.like-icon').textContent = '❤️';
-  label.textContent = 'You liked this';
+  icon.textContent = '❤️';
   setTimeout(() => btn.classList.remove('pop'), 400);
   localStorage.setItem(LIKE_KEY, 'true');
-
   trackEvent('handbook_liked', {
-    section_when_liked: getCurrentSection(),
+    section: getCurrentSection(),
     time_on_page_sec: Math.round((Date.now() - pageLoadTime) / 1000)
   });
 
-  // Post to Worker + show updated count
   if (hasWorker()) {
     try {
       const res = await fetch(`${WORKER_URL}/like`, { method: 'POST' });
-      const data = await res.json();
-      countEl.style.display = 'inline';
-      countEl.textContent = `· ${data.likes.toLocaleString()} ${data.likes === 1 ? 'like' : 'likes'}`;
-    } catch(e) {
-      countEl.style.display = 'inline';
-      countEl.textContent = '· 1 like';
-    }
+      const d = await res.json();
+      count.textContent = fmtNum(d.likes);
+    } catch(e) { count.textContent = '1'; }
   } else {
-    countEl.style.display = 'inline';
-    countEl.textContent = '· 1 like';
+    count.textContent = '1';
   }
 
   showToast();
@@ -2982,13 +3019,12 @@ async function handleLike() {
 function showToast() {
   const t = document.getElementById('toast');
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+  setTimeout(() => t.classList.remove('show'), 3200);
 }
 
 // ── FEEDBACK ──────────────────────────────────────────────────────
 function toggleFeedback() {
   const panel = document.getElementById('feedback-panel');
-  const btn = document.getElementById('feedback-btn');
   const isOpen = panel.style.display === 'flex';
   panel.style.display = isOpen ? 'none' : 'flex';
   if (!isOpen) {
@@ -3015,7 +3051,7 @@ async function submitFeedback() {
     ts: new Date().toISOString()
   };
 
-  trackEvent('feedback_submitted', { section: payload.section, has_name: !!name });
+  trackEvent('feedback_submitted', { section: payload.section });
 
   if (hasWorker()) {
     try {
@@ -3024,10 +3060,7 @@ async function submitFeedback() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-    } catch(e) { /* silent */ }
-  } else {
-    // No worker yet — just log it
-    console.log('[Feedback]', payload);
+    } catch(e) {}
   }
 
   document.getElementById('feedback-text').value = '';
@@ -3099,12 +3132,12 @@ window.addEventListener('beforeunload', () => {
 
 // ── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  initLike();
+  initStats();
   trackEvent('page_loaded', { referrer: document.referrer || 'direct' });
   document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
-  // Show feedback button after 30s (user has had time to read)
+  // Show feedback button after 30s
   setTimeout(() => {
-    const fb = document.getElementById('feedback-btn');
+    const fb = document.getElementById('fic-feedback');
     if (fb) fb.style.display = 'flex';
   }, 30000);
 });
